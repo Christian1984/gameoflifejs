@@ -1,0 +1,20 @@
+{
+  "name": "gameoflifejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Christian1984/gameoflifejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Christian1984/gameoflifejs/issues"
+  },
+  "homepage": "https://github.com/Christian1984/gameoflifejs#readme"
+}
