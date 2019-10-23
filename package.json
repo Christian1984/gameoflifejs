@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/Christian1984/gameoflifejs/issues"
   },
-  "homepage": "https://github.com/Christian1984/gameoflifejs#readme"
+  "homepage": "https://github.com/Christian1984/gameoflifejs#readme",
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "typescript": "^3.6.4"
+  },
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
 }
