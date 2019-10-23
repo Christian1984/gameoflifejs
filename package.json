@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Christian1984/gameoflifejs#readme",
   "devDependencies": {
     "live-server": "^1.2.1",
+    "sass": "^1.23.1",
     "typescript": "^3.6.4"
   },
   "dependencies": {
