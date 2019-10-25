@@ -1,4 +1,4 @@
-class GameOfLife
+export class GameOfLife
 {
     step: number = 0;
     size: {x: number, y: number};

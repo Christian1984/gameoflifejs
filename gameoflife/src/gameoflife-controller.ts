@@ -1,4 +1,6 @@
-class GameOfLifeController
+import {GameOfLife} from "./gameoflife.js";
+
+export class GameOfLifeController
 {
     // game model
     private gameOfLife: GameOfLife;
@@ -115,11 +117,3 @@ class GameOfLifeController
         }
     }
 }
-
-(function() {
-    const c = new GameOfLifeController(10);
-    c.start();
-
-    //setTimeout(() => c.stop(), 1000);
-    //setTimeout(() => c.setTickDelay(1000), 1000);
-})();
