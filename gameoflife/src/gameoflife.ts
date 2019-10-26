@@ -33,8 +33,13 @@ export class GameOfLife
         this.views.push(view);
     }
 
-   public update(): void {
-        this.board[this.step % this.size.y][this.step % this.size.x] = true;
+    public update(): void {
+       //demo
+        this.board[this.step % this.size.y][this.step % this.size.x] = 
+        !this.board[this.step % this.size.y][this.step % this.size.x];
+        
+        //TODO
+
         this.step++;
 
         for (let i = 0; i < this.views.length; i++) {

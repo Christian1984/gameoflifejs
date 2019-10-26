@@ -60,6 +60,8 @@ export class GameOfLifeBoardView implements GameOfLifeView {
             ropen.innerText = "[";
             let rclose = document.createElement("td");
             rclose.innerText = "]";
+            let comma = document.createElement("td");
+            comma.textContent = ",";
             
             for (let r = 0; r < this.height; r++) {
                 let tdRow = [];
@@ -79,8 +81,12 @@ export class GameOfLifeBoardView implements GameOfLifeView {
                 
                 for (let c = 0; c < this.width; c++) {
                     let col = document.createElement("td");
-                    //col.textContent = game.board[r][c] ? "x" : "o";
                     row.appendChild(col);
+
+                    if (c < this.width - 1) {
+                        row.appendChild(comma.cloneNode(true));
+                    }
+
                     tdRow.push(col);
                 }
                 
@@ -93,10 +99,13 @@ export class GameOfLifeBoardView implements GameOfLifeView {
                 }
                 else
                 {
-                    row.appendChild(document.createElement("td"));
+                    row.appendChild(comma.cloneNode(true));
                 }
     
                 table.appendChild(row);
+
+
+
                 this.tds.push(tdRow);
     
                 this.boardDiv.appendChild(table);
@@ -109,7 +118,14 @@ export class GameOfLifeBoardView implements GameOfLifeView {
 
         for (let r = 0; r < this.height; r++) {
             for (let c = 0; c < this.width; c++) {
-                this.tds[r][c].textContent = game.board[r][c] ? "x" : "o";
+                if (game.board[r][c]) {
+                    this.tds[r][c].textContent = "1";
+                    this.tds[r][c].classList.add("alive");
+                }
+                else {
+                    this.tds[r][c].textContent = "0";
+                    this.tds[r][c].classList.remove("alive");
+                }
             }
         }
     }

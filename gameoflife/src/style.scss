@@ -1,6 +1,16 @@
 html {
     body {
         background-color: #222;
-        color: #bbc
+        color: #bbc;
+
+        #board {
+            td {
+                color: green;
+
+                &.alive {
+                    color:greenyellow;
+                }
+            }
+        }
     }
 }
