@@ -20,13 +20,7 @@ export class GameOfLife
         this.board = [];
         this.views = [];
 
-        for (let r = 0; r < this.height; r++) {
-            this.board.push([]);
-
-            for (let c = 0; c < this.width; c++) {
-                this.board[r].push(false);
-            }
-        }
+        this.board = this.emptyBoard();
 
         this.updateTimestamp();
     }
@@ -34,6 +28,7 @@ export class GameOfLife
     //public methods
     public addView(view: GameOfLifeView): void {
         this.views.push(view);
+        this.notifyViews();
     }
 
     public notifyViews(): void {
@@ -43,11 +38,32 @@ export class GameOfLife
     }
 
     public update(): void {
-       //demo
-        this.board[this.step % this.height][this.step % this.width] = 
-        !this.board[this.step % this.height][this.step % this.width];
-        
-        //TODO
+        let board = this.emptyBoard();
+
+        for (let r = 0; r < this.height; r++) {
+            for (let c = 0; c < this.width; c++) {
+                let neighbors = this.neighbors(c, r);
+
+                //if(c == 1 &&  r == 1) 
+                //    console.log("col", c, "row", r, "neightbors", neighbors);
+
+                if (this.board[r][c]) {
+                    if (neighbors < 2 || neighbors > 3) {
+                        board[r][c] = false;
+                    }
+                    else{
+                        board[r][c] = true;
+                    }
+                }
+                else {
+                    if (neighbors === 3) {
+                        board[r][c] = true;
+                    }
+                }
+            }
+        }
+
+        this.board = board;
 
         this.step++;
 
@@ -58,7 +74,7 @@ export class GameOfLife
     }
 
     public toggle(x: number, y: number): void {
-        if (x < 0 || x >= this.width || y < 0 || y > this.height) {
+        if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
             return;
         }
 
@@ -108,5 +124,37 @@ export class GameOfLife
         if (currentFramerate < this.minFrameRate) {
             this.minFrameRate = currentFramerate;
         }
+    }
+
+    private emptyBoard(): boolean[][] {
+        let board: boolean[][] = [];
+
+        for (let r = 0; r < this.height; r++) {
+            board.push([]);
+
+            for (let c = 0; c < this.width; c++) {
+                board[r].push(false);
+            }
+        }
+
+        return board;
+    }
+
+    private neighbors(x: number, y: number): number {
+        let count = 0;
+
+        for (let r = y - 1; r <= y + 1; r++) {
+            for (let c = x - 1; c <= x + 1; c++) {
+                if (c < 0 || c >= this.width || r < 0 || r >= this.height || (r == y && c == x)) {
+                    continue;
+                }
+
+                if (this.board[r][c]) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
     }
 }

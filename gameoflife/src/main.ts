@@ -13,9 +13,5 @@ import { GameOfLifeController } from "./gameoflife-controller.js";
     g.addView(bv);
     g.addView(sv);
 
-    const c = new GameOfLifeController(g, 20);
-    c.start();
-
-    //setTimeout(() => c.stop(), 1000);
-    //setTimeout(() => c.setTickDelay(1000), 1000);
+    const c = new GameOfLifeController(g, 100);
 })();
