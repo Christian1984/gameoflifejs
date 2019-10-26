@@ -86,7 +86,17 @@ export class GameOfLifeBoardViewController implements GameOfLifeView {
 
                     col.addEventListener("click", () => {
                         gameOfLife.toggle(c, r);
-                    })
+                    });
+
+                    col.addEventListener("mouseout", (e) => {
+                        if (e.buttons != 0) {
+                            let sel = window.getSelection();
+                            if (sel) {
+                                sel.removeAllRanges();
+                            }
+                            gameOfLife.toggle(c, r);
+                        }
+                    });
 
                     row.appendChild(col);
 
