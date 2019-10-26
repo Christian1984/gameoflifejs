@@ -6,15 +6,38 @@ export interface GameOfLifeView {
 
 export class GameOfLifeStatsView implements GameOfLifeView {
     framerateDisplay: HTMLElement | null;
+    framerateAvgDisplay: HTMLElement | null;
+    framerateMinDisplay: HTMLElement | null;
+    framerateMaxDisplay: HTMLElement | null;
 
     constructor() {
         this.framerateDisplay = document.getElementById("stats-framerate");
+        this.framerateAvgDisplay = document.getElementById("stats-framerate-avg");
+        this.framerateMinDisplay = document.getElementById("stats-framerate-min");
+        this.framerateMaxDisplay = document.getElementById("stats-framerate-max");
     }
 
     public draw(game: GameOfLife): void {
+        let fr = game.getFramerates();
+        
         if (this.framerateDisplay)
         {
-            this.framerateDisplay.innerText = Number(game.getFramerate()).toFixed(2);
+            this.framerateDisplay.innerText = Number(fr.current).toFixed(2);
+        }
+
+        if (this.framerateAvgDisplay)
+        {
+            this.framerateAvgDisplay.innerText = Number(fr.avg).toFixed(2);
+        }
+
+        if (this.framerateMinDisplay)
+        {
+            this.framerateMinDisplay.innerText = Number(fr.min).toFixed(2);
+        }
+
+        if (this.framerateMaxDisplay)
+        {
+            this.framerateMaxDisplay.innerText = Number(fr.max).toFixed(2);
         }
     }
 }

@@ -9,7 +9,9 @@ export class GameOfLife
     //stats
     private timestampLastTick: number = 0;
     private frameRate: number = 0;
-    private frameRateSampleSize: number = 100;
+    private avgFrameRate: number = 0
+    private minFrameRate: number = Number.MAX_VALUE;
+    private maxFrameRate: number = 0;
 
     constructor(x: number, y: number) {
         this.size = {x, y};
@@ -47,19 +49,27 @@ export class GameOfLife
         this.timestampLastTick = Date.now();
     }
 
-    public getFramerate(): number {
-        return this.frameRate;
+    public getFramerates(): { current: number, avg: number, min: number, max: number } {
+        return { 
+            current: this.frameRate,
+            avg: this.avgFrameRate,
+            min: this.minFrameRate,
+            max: this.maxFrameRate
+        };
     }
 
     private calcFramerate(): void {
         let currentFramerate = 1000 / (Date.now() - this.timestampLastTick);
-        
-        if (this.frameRate === 0) {
-            this.frameRate = currentFramerate;
-            return;
-        }
+        this.frameRate = currentFramerate;
 
-        this.frameRate = 
-            (((this.frameRateSampleSize - 1) * this.frameRate) + currentFramerate) / this.frameRateSampleSize;
+        this.avgFrameRate = ((this.avgFrameRate * (this.step - 1)) + currentFramerate) / this.step;
+ 
+        if (currentFramerate > this.maxFrameRate) {
+            this.maxFrameRate = currentFramerate;
+        }
+        
+        if (currentFramerate < this.minFrameRate) {
+            this.minFrameRate = currentFramerate;
+        }
     }
 }
