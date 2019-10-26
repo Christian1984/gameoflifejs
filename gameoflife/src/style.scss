@@ -1,15 +1,35 @@
 html {
     body {
+        font-family: "Courier New", Courier, monospace;
         background-color: #222;
         color: #bbc;
 
-        #board {
-            td {
-                color: green;
+        div {
+            margin: 20px;
+        }
 
-                &.alive {
-                    color:greenyellow;
+        h1 {
+            text-align: center;
+        }
+
+        #board {
+            table {
+                margin: 0 auto;
+                cursor: cell;
+
+                td {
+                    color: green;
+    
+                    &.alive {
+                        color:greenyellow;
+                    }
                 }
+            }
+        }
+
+        #stats {
+            table {
+                margin: 0 auto;
             }
         }
     }
