@@ -13,7 +13,7 @@ import { GameOfLifeController } from "./gameoflife-controller.js";
     g.addView(bv);
     g.addView(sv);
 
-    const c = new GameOfLifeController(g, 1);
+    const c = new GameOfLifeController(g, 50);
     c.start();
 
     //setTimeout(() => c.stop(), 1000);
