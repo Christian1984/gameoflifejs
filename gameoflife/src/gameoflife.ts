@@ -2,7 +2,8 @@ import { GameOfLifeView } from "./gameoflife-view.js";
 export class GameOfLife
 {
     step: number = 0;
-    size: { x: number, y: number };
+    width: number;
+    height: number;
     board: boolean[][];
     views: GameOfLifeView[];
 
@@ -13,15 +14,16 @@ export class GameOfLife
     private minFrameRate: number = Number.MAX_VALUE;
     private maxFrameRate: number = 0;
 
-    constructor(x: number, y: number) {
-        this.size = {x, y};
+    constructor(width: number, height: number) {
+        this.width = width;
+        this.height = height;
         this.board = [];
         this.views = [];
 
-        for (let r = 0; r < this.size.y; r++) {
+        for (let r = 0; r < this.height; r++) {
             this.board.push([]);
 
-            for (let c = 0; c < this.size.x; c++) {
+            for (let c = 0; c < this.width; c++) {
                 this.board[r].push(false);
             }
         }
@@ -29,29 +31,54 @@ export class GameOfLife
         this.updateTimestamp();
     }
 
+    //public methods
     public addView(view: GameOfLifeView): void {
         this.views.push(view);
     }
 
+    public notifyViews(): void {
+        for (let i = 0; i < this.views.length; i++) {
+            this.views[i].draw(this);
+        }
+    }
+
     public update(): void {
        //demo
-        this.board[this.step % this.size.y][this.step % this.size.x] = 
-        !this.board[this.step % this.size.y][this.step % this.size.x];
+        this.board[this.step % this.height][this.step % this.width] = 
+        !this.board[this.step % this.height][this.step % this.width];
         
         //TODO
 
         this.step++;
 
-        for (let i = 0; i < this.views.length; i++) {
-            this.views[i].draw(this);
-        }
-
         this.calcFramerate();
         this.updateTimestamp();
+
+        this.notifyViews();
     }
-    
-    public updateTimestamp(): void {
-        this.timestampLastTick = Date.now();
+
+    public toggle(x: number, y: number): void {
+        if (x < 0 || x >= this.width || y < 0 || y > this.height) {
+            return;
+        }
+
+        this.board[y][x] = !this.board[y][x];
+
+        this.notifyViews();
+    }
+
+    public reset(): void {
+        for (let r = 0; r < this.height; r++) {
+            this.board.push([]);
+
+            for (let c = 0; c < this.width; c++) {
+                this.board[r][c] = false;
+            }
+        }
+
+        this.step = 0;
+
+        this.notifyViews();
     }
 
     public getFramerates(): { current: number, avg: number, min: number, max: number } {
@@ -63,6 +90,11 @@ export class GameOfLife
         };
     }
 
+    public updateTimestamp(): void {
+        this.timestampLastTick = Date.now();
+    }
+
+    // private methods
     private calcFramerate(): void {
         let currentFramerate = 1000 / (Date.now() - this.timestampLastTick);
         this.frameRate = currentFramerate;

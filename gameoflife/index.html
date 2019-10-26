@@ -10,26 +10,35 @@
 <body>
     <h1>Game Of Life</h1>
     <div id="board"></div>
-    <div id="controls"></div>
-    <div id="stats">
-        <table>
-            <tr>
-                <th>Framerate</th>
-                <td id="stats-framerate"></td>
-            </tr>
-            <tr>
-                <th>Average Framerate</th>
-                <td id="stats-framerate-avg"></td>
-            </tr>
-            <tr>
-                <th>Min Framerate</th>
-                <td id="stats-framerate-min"></td>
-            </tr>
-            <tr>
-                <th>Max Framerate</th>
-                <td id="stats-framerate-max"></td>
-            </tr>
-        </table>
+    <div id="bottom">
+        <div id="controls">
+            <span id="controls-flow">
+                <span><a id="controls-flow-start" href="#">Start</a></span>
+                <span><a id="controls-flow-stop" href="#">Stop</a></span>
+                <span><a id="controls-flow-step" href="#">Step</a></span>
+                <span><a id="controls-flow-reset" href="#">Reset</a></span>
+            </span>
+        </div>
+        <div id="stats">
+            <table>
+                <tr>
+                    <th>Framerate</th>
+                    <td id="stats-framerate"></td>
+                </tr>
+                <tr>
+                    <th>Average Framerate</th>
+                    <td id="stats-framerate-avg"></td>
+                </tr>
+                <tr>
+                    <th>Min Framerate</th>
+                    <td id="stats-framerate-min"></td>
+                </tr>
+                <tr>
+                    <th>Max Framerate</th>
+                    <td id="stats-framerate-max"></td>
+                </tr>
+            </table>
+        </div>
     </div>
     <script src ="build/main.js" type="module"></script>
 </body>

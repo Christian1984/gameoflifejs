@@ -1,5 +1,5 @@
 import { GameOfLife } from "./gameoflife.js";
-import { GameOfLifeBoardView, GameOfLifeStatsView } from "./gameoflife-view.js";
+import { GameOfLifeBoardViewController, GameOfLifeStatsView } from "./gameoflife-view.js";
 import { GameOfLifeController } from "./gameoflife-controller.js";
 
 (function() {
@@ -7,7 +7,7 @@ import { GameOfLifeController } from "./gameoflife-controller.js";
     const height = 13;
 
     const g = new GameOfLife(width, height);
-    const bv = new GameOfLifeBoardView(width, height);
+    const bv = new GameOfLifeBoardViewController(g);
     const sv = new GameOfLifeStatsView();
 
     g.addView(bv);

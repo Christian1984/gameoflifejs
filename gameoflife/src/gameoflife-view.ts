@@ -42,15 +42,17 @@ export class GameOfLifeStatsView implements GameOfLifeView {
     }
 }
 
-export class GameOfLifeBoardView implements GameOfLifeView {
+export class GameOfLifeBoardViewController implements GameOfLifeView {
     width: number;
     height: number;
+    gameOfLife: GameOfLife;
     boardDiv: HTMLElement | null;
     tds: HTMLElement[][] = [];
 
-    constructor(width: number, height: number) {
-        this.width = width;
-        this.height = height;
+    constructor(gameOfLife: GameOfLife) {
+        this.gameOfLife = gameOfLife;
+        this.width = gameOfLife.width;
+        this.height = gameOfLife.height;
         this.boardDiv = document.getElementById("board");
 
         if (this.boardDiv) {
@@ -81,6 +83,11 @@ export class GameOfLifeBoardView implements GameOfLifeView {
                 
                 for (let c = 0; c < this.width; c++) {
                     let col = document.createElement("td");
+
+                    col.addEventListener("click", () => {
+                        gameOfLife.toggle(c, r);
+                    })
+
                     row.appendChild(col);
 
                     if (c < this.width - 1) {

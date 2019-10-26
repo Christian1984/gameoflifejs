@@ -4,6 +4,21 @@ html {
         background-color: #222;
         color: #bbc;
 
+        a {
+            border: solid 1px;
+            padding: 5px;
+
+            &:link, 
+            &:visited {
+                color: inherit;
+            }
+
+            &:active,
+            &:hover {
+                color: white;
+            }
+        }
+
         div {
             margin: 20px;
         }
@@ -23,6 +38,16 @@ html {
                     &.alive {
                         color:greenyellow;
                     }
+                }
+            }
+        }
+
+        #controls {
+            text-align: center;
+
+            #controls-flow {
+                span {
+                    margin: 0 5px;
                 }
             }
         }
