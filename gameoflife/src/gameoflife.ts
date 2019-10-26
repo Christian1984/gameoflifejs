@@ -5,6 +5,7 @@ export class GameOfLife
     width: number;
     height: number;
     board: boolean[][];
+    backup: boolean[][] = [];
     views: GameOfLifeView[];
 
     //stats
@@ -38,6 +39,9 @@ export class GameOfLife
     }
 
     public update(): void {
+        if (this.step === 0) {
+            this.backupBoard();
+        }
         let board = this.emptyBoard();
 
         for (let r = 0; r < this.height; r++) {
@@ -84,16 +88,14 @@ export class GameOfLife
     }
 
     public reset(): void {
-        for (let r = 0; r < this.height; r++) {
-            this.board.push([]);
-
-            for (let c = 0; c < this.width; c++) {
-                this.board[r][c] = false;
-            }
-        }
-
+        this.restoreBackup();
         this.step = 0;
+        this.notifyViews();
+    }
 
+    public clear(): void {
+        this.board = this.emptyBoard();
+        this.step = 0;
         this.notifyViews();
     }
 
@@ -138,6 +140,14 @@ export class GameOfLife
         }
 
         return board;
+    }
+
+    private backupBoard(): void {
+        this.backup = JSON.parse(JSON.stringify(this.board));
+    }
+
+    private restoreBackup(): void {
+        this.board = JSON.parse(JSON.stringify(this.backup));
     }
 
     private neighbors(x: number, y: number): number {

@@ -45,6 +45,15 @@ export class GameOfLifeController
                 this.stop();
             });
         }
+
+        let clearButton = document.getElementById("controls-flow-clear");
+        if (clearButton) {
+            clearButton.addEventListener("click", (e) => {
+                e.preventDefault();
+                this.gameOfLife.clear();
+                this.stop();
+            });
+        }
     }
 
     public start(): void {
